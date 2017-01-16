@@ -1,8 +1,5 @@
-
 const conf = require('../../config')
 
-////////////// PUBLIC //////////////
-////////////////////////////////////
 
 function init(server){
 	var io = require('socket.io')(server);
@@ -24,6 +21,7 @@ function init(server){
 	io.listen(conf.chat.port);
 	console.log("socket.io launched on "+conf.chat.port)
 }
+
 
 
 function onConnect(socket){

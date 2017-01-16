@@ -11,10 +11,10 @@ $(document).ready(function(){
 
 function emit(){
     socket.emit('message', {
-			/*message:$('#message').val(),
-			author:$('#message_author').val(),
-			keyAuth:$('#message_keyauth').val()*/
-		});
+        /*message:$('#message').val(),
+        author:$('#message_author').val(),
+        keyAuth:$('#message_keyauth').val()*/
+    });
 }
 
 
