@@ -1,13 +1,10 @@
-// server.js
+// app.js
 
 //imports
 const express   = require('express')
 const path      = require('path')
 const exphbs    = require('express-handlebars')
-const passport  = require('passport')
-const session   = require('express-session')
 const bodyParser= require('body-parser')
-const multer    = require('multer')
 const http		= require('http')
 
 //General cong
@@ -15,19 +12,12 @@ const mongo     = require('./app/mongo')
 const config    = require('./config') //config file
 const app       = express();
 const port      = process.env.PORT || config.server.port;
-const server 	= http.createServer(app);
+const expressServer 	= http.createServer(app);
 
 //Express configuration
 app
 .use(express.static(__dirname + '/views/assets'))   //styles
 .use(express.static(__dirname + '/uploads'))        //uploads
-.use(session({
-    secret : config.session.secret,
-    resave: false,
-    saveUninitialized: false
-}))
-.use(passport.initialize())
-.use(passport.session())
 .use(bodyParser.json() )        // to support JSON-encoded bodies
 .use(bodyParser.urlencoded({    // to support URL-encoded bodies
   extended: true
@@ -40,7 +30,8 @@ var handlebars = exphbs.create({
     extname: '.hbs',
     layoutsDir: path.join(__dirname,'views/layouts'),
     helpers: {
-        ifContains: function(context, options, out) { //{{#ifContains privileges 'create_articles'}} interieur {{/ifContains}}
+        ifContains: function(context, options, out) { 
+            //{{#ifContains privileges 'create_articles'}} quelque chose {{/ifContains}}
             if(!context){
                 return "";
             }
@@ -62,22 +53,40 @@ app
 
 
 /////////// indexes ///////////
-
+var server = require("./app/server")
 
 /////////// inits ///////////
-//chat.init(server);
+server.init(expressServer);
 
 ////////////////////////
-//    R O U T E S     //
+//    R O U T E S     
+//
+//"/" : the game
+//"/info": info
+//"/help": help
+//
 ////////////////////////
 app
 ////////// FRONT //////////
 
 .get('/', (request, response) => {	
-	response.render('main', {
-		//global:getParameters(request)
+	response.render('front/game', {
+		
 	})
 })
+
+.get('/info', (request, response) => {	
+	response.render('info', {
+		
+	})
+})
+
+.get('/help', (request, response) => {	
+	response.render('help', {
+		
+	})
+})
+
 
 //////////////////////////
 .get('/403', function(req,res){
@@ -97,23 +106,19 @@ app
 
 //////////// Error handler //////////
 app.use((err, request, response, next) => {  
-  //TODO log error
-  console.log("express error handler return"+err);
+  console.log(err);
   response.status(500).render('error', {
-      errorCode:500,
-      errorTitle:"Erreur de serveur interne",
-      errorContent:err
+      errorCode:500
   });
 });
 
 
 //application launch
-server.listen(port, (err) => {
+expressServer.listen(port, (err) => {
     if(err) {
         return console.log("launching error on "+port, err)
     }
-    console.log("server runing on "+port)
-    
+    console.log("expressServer running on "+port)
 });
 
 

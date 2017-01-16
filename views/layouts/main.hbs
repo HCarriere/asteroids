@@ -1,12 +1,9 @@
 <!DOCTYPE html>
-
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Pire to pire</title>
-        <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+        <title>Unknown name</title>
         <link rel="stylesheet" href="/css/style.css">
-        <script type="text/javascript" src="/js/jquery-3.1.1.min.js"></script>
         <script type="text/javascript" src="/js/scripts.js"></script>
 		{{#each otherScripts}}
 		<script type="text/javascript" src="{{script}}"></script>
@@ -14,37 +11,6 @@
     </head>
     
     <body>
-        <header>
-            <a href="/" style="color:transparent;">
-            <div class="top-logo"></div>
-            <div class="top-name">Pire to Pire</div></a><!--
-         --><nav>
-                <ul>
-                    <li>
-                        <form method="get" action="/search">
-                            <input type="text" name="text" class="search-input-text" placeholder="Recherche...">
-                            <input type="submit" class="search-submit" value="">
-                        </form>
-                        </li><!--
-                 --><a href="/article"><li ><i class="fa fa-file-text-o"></i> Articles</li></a><!--
-                 --><a href="/shared"><li><i class="fa fa-share-alt"></i> Partages</li></a><!--
-                 --><a href="/profile"><li class="user"><i class="fa fa-user"></i>  
-                    {{#if global.userName}} 
-                        #{{global.userName}} 
-                    {{else}} 
-                        Connexion 
-                    {{/if}}
-                    </li></a>
-                </ul>
-            </nav>
-        </header>
-        
-        <div class="content">
-            {{{body}}}
-        </div>
-        
-        <footer>
-<!--            Copyright HCarriere 2016-->
-        </footer>
+        {{{body}}}
     </body>
 </html>

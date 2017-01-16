@@ -2,7 +2,7 @@
   "name": "asteroids",
   "version": "1.0.0",
   "description": "a game of asteroids",
-  "main": "server.js",
+  "main": "app.js",
   "scripts": {
     "test": "test.js"
   },
@@ -12,13 +12,9 @@
     "body-parser": "^1.15.2",
     "express": "^4.14.0",
     "express-handlebars": "^3.0.0",
-    "express-session": "^1.14.1",
     "handlebars": "^4.0.5",
     "md5": "^2.2.1",
     "mongoose": "^4.6.1",
-    "multer": "^1.2.0",
-    "passport": "^0.3.2",
-    "passport-local": "^1.0.0",
     "socket.io": "^1.7.1"
   }
 }

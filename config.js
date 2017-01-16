@@ -7,35 +7,24 @@ module.exports = {
         defaultAddress:{
             prefix:"mongodb",
             name:"localhost",
-            database:"pire-to-pire"
+            database:"asteroids"
         },
 		//name:"mongodb://localhost/pire-to-pire",
         collections : {
-            users:"user",
-            articles:"article",
-			chatMessage:"chatMessage",
-            shareables:"shareable"
+            
         },
 		verbose:false,
 		mongooseDebug:false
     },
     session:{
-        secret: "QeHjU?D542:8eE"
+        secret: "hu_H9_h98ho_HGD"
     },
 	chat:{
-		secret: "ZOjc1o+i25-jO.IE7*OIJ8-_8OIJ",
+		secret: "oIHFYrdTR98Y87tRou(r818y1)g663",
 		limitPrevious: 50,
 		port:5000
 	},
     server:{
         port:3000
-    },
-    upload:{
-        image:{
-            maxSize:67108864 //64 MB
-        },
-        documents:{
-            maxSize:671088640 //640 MB
-        }
     }
 }
