@@ -17,7 +17,7 @@ const expressServer 	= http.createServer(app);
 //Express configuration
 app
 .use(express.static(__dirname + '/views/assets'))   //styles
-.use(express.static(__dirname + '/uploads'))        //uploads
+.use(express.static(__dirname + '/asteroidsGame'))  
 .use(bodyParser.json() )        // to support JSON-encoded bodies
 .use(bodyParser.urlencoded({    // to support URL-encoded bodies
   extended: true
@@ -71,7 +71,12 @@ app
 
 .get('/', (request, response) => {	
 	response.render('front/game', {
-		
+		scripts:
+		[
+			{file:"/socket.io/socket.io.js"},
+			{file:"/js/socketEvents.js"},
+			{file:"/asteroids.js"}
+		]
 	})
 })
 
@@ -118,7 +123,8 @@ expressServer.listen(port, (err) => {
     if(err) {
         return console.log("launching error on "+port, err)
     }
-    console.log("expressServer running on "+port)
+    console.log("expressServer running on "+port);
+    console.log("app ready");
 });
 
 

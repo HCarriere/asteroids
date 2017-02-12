@@ -16,5 +16,8 @@
     "md5": "^2.2.1",
     "mongoose": "^4.6.1",
     "socket.io": "^1.7.1"
+  },
+  "devDependencies": {
+    "uglify-js": "^2.7.5"
   }
 }

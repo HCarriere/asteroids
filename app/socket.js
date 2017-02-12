@@ -1,4 +1,6 @@
 /**
+SOCKET UTILS
+
 -init
 -room & namespace:
     -creation
@@ -9,3 +11,12 @@
 
 http://socket.io/docs/rooms-and-namespaces/#
 */
+function init(){
+	
+}
+
+
+
+module.exports = {
+	
+}
