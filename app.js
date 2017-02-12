@@ -73,9 +73,9 @@ app
 	response.render('front/game', {
 		scripts:
 		[
-			{file:"/socket.io/socket.io.js"},
-			{file:"/js/socketEvents.js"},
-			{file:"/asteroids.js"}
+			{file:["/socket.io/socket.io.js"]},
+			{file:["/js/socketEvents.js"]},
+			{file:getAsteroidGameSources()}
 		]
 	})
 })
@@ -124,10 +124,24 @@ expressServer.listen(port, (err) => {
         return console.log("launching error on "+port, err)
     }
     console.log("expressServer running on "+port);
-    console.log("app ready");
+    
+	if(process.env.PRODUCTION === 'TRUE'){
+		console.log("running PRODUCTION version");
+	}else{
+		console.log("running DEVELOPPMENT version");
+	}
 });
 
 
-
+function getAsteroidGameSources(){
+	
+	if(process.env.PRODUCTION === 'TRUE'){
+		return config.gameBuildInfo.destination+config.gameBuildInfo.version+".js";
+	}else{
+		var map = config.gameBuildInfo.devSourceMap;
+		
+		return map;
+	}
+}
 
 

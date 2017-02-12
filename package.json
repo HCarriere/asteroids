@@ -4,7 +4,7 @@
   "description": "a game of asteroids",
   "main": "app.js",
   "scripts": {
-    "test": "test.js"
+    "build": "build.js"
   },
   "author": "hcarriere",
   "license": "ISC",

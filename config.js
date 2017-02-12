@@ -26,5 +26,14 @@ module.exports = {
 	},
     server:{
         port:3000
-    }
+    },
+	gameBuildInfo : {
+		devSourceMap:[
+			"/asteroids.js",
+			"/view/ui.js"
+		],
+		version : "1.0.0",
+		destination : "/asteroids.mini.",
+		rootFolder : "asteroidsGame"
+	}
 }
