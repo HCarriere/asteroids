@@ -19,9 +19,7 @@ module.exports = {
     session:{
         secret: "hu_H9_h98ho_HGD"
     },
-	chat:{
-		secret: "oIHFYrdTR98Y87tRou(r818y1)g663",
-		limitPrevious: 50,
+	socket:{
 		port:5000
 	},
     server:{
@@ -29,11 +27,16 @@ module.exports = {
     },
 	gameBuildInfo : {
 		devSourceMap:[
-			"/asteroids.js",
-			"/view/ui.js"
+			"/asteroids.js"
 		],
-		version : "1.0.0",
+		version : "dev",
 		destination : "/asteroids.mini.",
 		rootFolder : "asteroidsGame"
-	}
+	},
+    envVariables : [
+        {
+            name:"PRODUCTION",
+            value:process.env.PRODUCTION //might not work
+        }
+    ]
 }

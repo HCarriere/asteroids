@@ -1,5 +1,7 @@
 var server = require('./server')
+var events = require('./events')
 
 module.exports = {
-	init: server.init
+	init: server.init,
+    events : events.events
 }

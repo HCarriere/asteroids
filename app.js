@@ -56,6 +56,7 @@ app
 var server = require("./app/server")
 
 /////////// inits ///////////
+getEnvVariable();
 server.init(expressServer);
 
 ////////////////////////
@@ -73,8 +74,8 @@ app
 	response.render('front/game', {
 		scripts:
 		[
-			{file:["/socket.io/socket.io.js"]},
-			{file:["/js/socketEvents.js"]},
+			{file:["/socket.io/socket.io.js",
+                  "/js/socketEvents.js"]},
 			{file:getAsteroidGameSources()}
 		]
 	})
@@ -125,23 +126,39 @@ expressServer.listen(port, (err) => {
     }
     console.log("expressServer running on "+port);
     
-	if(process.env.PRODUCTION === 'TRUE'){
+	if(config.envVariables["PRODUCTION"].value == 'TRUE'){
 		console.log("running PRODUCTION version");
 	}else{
-		console.log("running DEVELOPPMENT version");
+		console.log("running DEVELOPMENT version");
 	}
 });
 
 
 function getAsteroidGameSources(){
-	
-	if(process.env.PRODUCTION === 'TRUE'){
-		return config.gameBuildInfo.destination+config.gameBuildInfo.version+".js";
+	if(config.envVariables["PRODUCTION"].value == 'TRUE'){
+		return [config.gameBuildInfo.destination+config.gameBuildInfo.version+".js"];
 	}else{
 		var map = config.gameBuildInfo.devSourceMap;
-		
 		return map;
 	}
 }
+
+function getEnvVariable(){
+    //fetching args
+    if(process.argv.length > 2) {
+        console.log("---args : ");
+        for(var i = 2; i < process.argv.length; i++){
+            config.envVariables[i-2].value = process.argv[i];
+            console.log(config.envVariables[i-2].name+":"+config.envVariables[i-2].value);
+        }
+        console.log("---------")
+    }
+    //preparing args
+    for(var c =0; c<config.envVariables.length; c++){
+        config.envVariables[config.envVariables[c].name] = config.envVariables[c];
+    }
+}
+
+
 
 

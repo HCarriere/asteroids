@@ -1,5 +1,5 @@
 /**
-SOCKET UTILS
+SOCKET server UTILS
 
 -init
 -room & namespace:

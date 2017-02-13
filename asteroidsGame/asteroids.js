@@ -1,6 +1,8 @@
 
 var canvas, ctx;
 
+sockets.init();
+
 $(document).ready(function(){
 
 	init();
@@ -43,7 +45,7 @@ function init(){
 ////////////// main loop /////////////
 function render(){
 	ctx.clearRect(0,0,width,height);
-	
+	ctx.fillStyle = "#fff";
 	ctx.fillText("fps:"+Math.floor(fps.get()),1,10);
 	
 	requestAnimationFrame(render);
@@ -55,7 +57,7 @@ function render(){
 //e.offsetX
 //e.offsetY
 function mousePressed(e) {
-	
+	sockets.emit('mouse',null,e.offsetX);
 }
 function mouseReleased(e) {
 	
@@ -65,7 +67,8 @@ function mouseDragged(e) {
 }
 //e.charCode
 function keyPressed(e){
-	console.log(e.charCode)
+	//console.log(e.charCode)
+    sockets.emit('key',null,e.charCode);
 }
 
 ///////////////// resize /////////////////
