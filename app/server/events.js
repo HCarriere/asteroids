@@ -17,7 +17,7 @@ function getEvents(){
         onReceive : function(data, client){
 //            console.log("key : "+data);
         }
-    }
+    };
     return events;
 }
 

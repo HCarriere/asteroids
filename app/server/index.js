@@ -5,7 +5,7 @@ module.exports = {
     broadcast : server.broadcast,
     emitToClient: server.emitToClient,
     emitToRoom: server.emitToRoom,
-    emitToOthersInRoom : server.emitToOthersInRoom,
+    emitToRoomExceptSelf : server.emitToRoomExceptSelf,
     joinRoom: server.joinRoom,
     leaveRoom: server.leaveRoom
 }

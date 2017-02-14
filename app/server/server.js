@@ -52,7 +52,7 @@ function emitToRoom(roomName, message){
     io.sockets.in(roomName).emit('event',message);
 }
 
-function emitToOthersInRoom(client, roomName, message){
+function emitToRoomExceptSelf(client, roomName, message){
     socket.to(roomName).emit('event', message);
 }
 /**
@@ -89,7 +89,7 @@ module.exports = {
     init,
     emitToClient,
     emitToRoom,
-    emitToOthersInRoom,
+    emitToRoomExceptSelf,
     broadcast,
     joinRoom,
     leaveRoom
