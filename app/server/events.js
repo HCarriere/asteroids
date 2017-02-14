@@ -1,21 +1,27 @@
-var events = [
-    {
-        header:"key",
-        onReceive:function( data){
-            //default   
-            console.log("key"+data.data);
+
+//recu par le serveur, envoyé depuis le client. 
+//"Thou shall always verify user input"
+
+function getEvents(){
+    var events = [];
+    events["mouse"] = {
+        onReceive : function(data, client){
+            console.log("mouse : "+data);
+            require('./server').emitToClient(client, {
+                header:'cmouse',
+                data:'yousentme'+data
+            })
         }
-    },
-    
-    {
-        header:"mouse",
-        onReceive:function( data){
-            //default   
-            console.log("mouse"+data.data);
+    };
+    events["key"] = {
+        onReceive : function(data, client){
+            console.log("key : "+data);
         }
     }
-];
+    return events;
+}
+
 
 module.exports = {
-    events
+    getEvents
 }

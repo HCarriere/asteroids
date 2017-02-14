@@ -74,8 +74,7 @@ app
 	response.render('front/game', {
 		scripts:
 		[
-			{file:["/socket.io/socket.io.js",
-                  "/js/socketEvents.js"]},
+			{file:["/socket.io/socket.io.js"]},
 			{file:getAsteroidGameSources()}
 		]
 	})

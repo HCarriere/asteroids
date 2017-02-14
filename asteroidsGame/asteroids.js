@@ -1,12 +1,26 @@
 
 var canvas, ctx;
 
-sockets.init();
+
+function getEvents(){
+    var events = [];
+    events["ckey"] = {
+        onReceive : function(data){
+            console.log("ckey : "+data)
+        }
+    }
+    events["cmouse"] = {
+        onReceive : function(data){
+            console.log("cmouse : "+data)
+        }
+    }
+    return events;
+}
 
 $(document).ready(function(){
 
 	init();
-
+    sockets.init(getEvents());
 });
 
 var fps = {	
