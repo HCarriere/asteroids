@@ -20,7 +20,8 @@ module.exports = {
         secret: "hu_H9_h98ho_HGD"
     },
 	socket:{
-		port:5000
+		port:5000,
+        verbose:true
 	},
     server:{
         port:3000
@@ -28,16 +29,17 @@ module.exports = {
 	gameBuildInfo : {
 		devSourceMap:[
 			"/asteroids.js",
-            "/socketEvents.js"
+            "/utils/socketEvents.js"
 		],
 		version : "dev",
 		destination : "/asteroids.mini.",
-		rootFolder : "asteroidsGame"
+		devRootFolder : "asteroidsGameDev",
+        prodRootFolder : "asteroidsGameProd"
 	},
     envVariables : [
         {
             name:"PRODUCTION",
-            value:process.env.PRODUCTION //might not work
+            value:process.env.PRODUCTION //TODO test, might not work
         }
     ]
 }

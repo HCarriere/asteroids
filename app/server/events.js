@@ -6,16 +6,16 @@ function getEvents(){
     var events = [];
     events["mouse"] = {
         onReceive : function(data, client){
-            console.log("mouse : "+data);
-            require('./server').emitToClient(client, {
-                header:'cmouse',
-                data:'yousentme'+data
-            })
+//            console.log("mouse : "+data);
+//            require('./server').emitToClient(client, {
+//                header:'cmouse',
+//                data:'yousentme'+data
+//            })
         }
     };
     events["key"] = {
         onReceive : function(data, client){
-            console.log("key : "+data);
+//            console.log("key : "+data);
         }
     }
     return events;

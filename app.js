@@ -17,7 +17,7 @@ const expressServer 	= http.createServer(app);
 //Express configuration
 app
 .use(express.static(__dirname + '/views/assets'))   //styles
-.use(express.static(__dirname + '/asteroidsGame'))  
+//.use(express.static(__dirname + '/asteroidsGame'))  
 .use(bodyParser.json() )        // to support JSON-encoded bodies
 .use(bodyParser.urlencoded({    // to support URL-encoded bodies
   extended: true
@@ -56,7 +56,8 @@ app
 var server = require("./app/server")
 
 /////////// inits ///////////
-getEnvVariable();
+initEnvVariable();
+initExtraResourceFolders();
 server.init(expressServer);
 
 ////////////////////////
@@ -125,7 +126,7 @@ expressServer.listen(port, (err) => {
     }
     console.log("expressServer running on "+port);
     
-	if(config.envVariables["PRODUCTION"].value == 'TRUE'){
+	if(isProduction()){
 		console.log("running PRODUCTION version");
 	}else{
 		console.log("running DEVELOPMENT version");
@@ -134,7 +135,7 @@ expressServer.listen(port, (err) => {
 
 
 function getAsteroidGameSources(){
-	if(config.envVariables["PRODUCTION"].value == 'TRUE'){
+	if(isProduction()){
 		return [config.gameBuildInfo.destination+config.gameBuildInfo.version+".js"];
 	}else{
 		var map = config.gameBuildInfo.devSourceMap;
@@ -142,7 +143,7 @@ function getAsteroidGameSources(){
 	}
 }
 
-function getEnvVariable(){
+function initEnvVariable(){
     //fetching args
     if(process.argv.length > 2) {
         console.log("---args : ");
@@ -158,6 +159,15 @@ function getEnvVariable(){
     }
 }
 
+function isProduction(){
+    return config.envVariables["PRODUCTION"].value == 'TRUE';
+}
 
-
+function initExtraResourceFolders(){
+    if(isProduction()){
+        app.use(express.static(__dirname + '/asteroidsGameProd')) 
+    } else {
+        app.use(express.static(__dirname + '/asteroidsGameDev')) 
+    }
+}
 

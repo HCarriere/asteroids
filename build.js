@@ -6,9 +6,9 @@ var config = require("./config")
 
 function main(buildInfo){
 	//process.argv[2] //--> argument
-	var prodDestination = buildInfo.rootFolder+buildInfo.destination+buildInfo.version+".js";
+	var prodDestination = buildInfo.prodRootFolder+buildInfo.destination+buildInfo.version+".js";
 	
-	var code = minify(buildInfo.devSourceMap,buildInfo.rootFolder);
+	var code = minify(buildInfo.devSourceMap,buildInfo.devRootFolder);
 	
 	writeFile(code,prodDestination);
 }

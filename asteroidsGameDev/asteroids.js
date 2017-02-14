@@ -14,6 +14,11 @@ function getEvents(){
             console.log("cmouse : "+data)
         }
     }
+    events["warning"] = {
+        onReceive : function(data){
+            console.log("warning : "+data)
+        }
+    }
     return events;
 }
 

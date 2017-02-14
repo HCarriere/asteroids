@@ -1,8 +1,11 @@
 var server = require('./server')
-var events = require('./events')
 
 module.exports = {
 	init: server.init,
     broadcast : server.broadcast,
-    events : events.getEvents
+    emitToClient: server.emitToClient,
+    emitToRoom: server.emitToRoom,
+    emitToOthersInRoom : server.emitToOthersInRoom,
+    joinRoom: server.joinRoom,
+    leaveRoom: server.leaveRoom
 }
