@@ -165,9 +165,9 @@ function isProduction(){
 
 function initExtraResourceFolders(){
     if(isProduction()){
-        app.use(express.static(__dirname + '/asteroidsGameProd')) 
+        app.use(express.static(__dirname + '/'+config.gameBuildInfo.prodRootFolder)) 
     } else {
-        app.use(express.static(__dirname + '/asteroidsGameDev')) 
+        app.use(express.static(__dirname + '/'+config.gameBuildInfo.devRootFolder)) 
     }
 }
 

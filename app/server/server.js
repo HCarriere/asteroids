@@ -1,5 +1,7 @@
 const conf = require('../../config')
+const front = require('../front')
 var events = require('./events').getEvents();
+
 
 var io;
 
@@ -14,6 +16,16 @@ function init(server){
         socket.on("event", function(message){
             logMsg('event : '+JSON.stringify(message));
             events[message.header].onReceive(message.data, socket);
+        });
+        
+        socket.on("screenInfo", function(message) {
+            logMsg('screenInfo : '+JSON.stringify(message));
+            if(message.data){
+                var screen = front.getScreenInfos(message.data);
+                sendScreenToClient(socket,message.data, screen, function(clientAck){
+                    logMsg("client "+socket.id+" received screen with response : "+clientAck)
+                })
+            }
         });
         
 		//SESSION OFF
@@ -38,6 +50,13 @@ function onDisconnect(socket){
 	logMsg('client '+socket.id+' disconnected');
 }
 
+
+function sendScreenToClient(client, id, data, callback){
+    client.emit('screenInfo', {
+        header:id,
+        data:data
+    }, callback);
+}
 /**
 emit to the specified client.
 message contains : header,data
@@ -103,4 +122,8 @@ function logMsg(message){
     if(conf.socket.verbose){
         console.log(message)
     }
+//    broadcast({
+//        header:'console',
+//        data:message
+//    })
 }

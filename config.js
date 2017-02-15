@@ -29,7 +29,8 @@ module.exports = {
 	gameBuildInfo : {
 		devSourceMap:[
 			"/asteroids.js",
-            "/utils/socketEvents.js"
+            "/utils/socketEvents.js",
+            "/view/screenBuild.js"
 		],
 		version : "dev",
 		destination : "/asteroids.mini.",
