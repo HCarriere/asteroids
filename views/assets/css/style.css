@@ -13,3 +13,14 @@ canvas{
 	height:100%;
 	transition:all .5s;
 }
+
+.roulette {
+    
+}
+.roulette-section {
+    display:block;
+    width:100%;
+    border: 1px solid black;
+    height:400px;
+    background-color: grey;
+}

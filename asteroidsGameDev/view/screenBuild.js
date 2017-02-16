@@ -10,17 +10,18 @@ var screenBuild = {
     loadedScreens : [],
     
     addScreen : function(id,data) {
+        output.write("screen <"+id+"> stored. ("+JSON.stringify(data)+")")
         this.loadedScreens[id] = data;
     },
     fetchScreen : function(id) {
-        if(this.isScreenLoaded){
+        if(this.isScreenLoaded) {
             sockets.fetchScreen(id);
         }
     },
     isScreenLoaded : function(id) {
-        if(this.loadedScreens[id]){
+        if(this.loadedScreens[id]) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }

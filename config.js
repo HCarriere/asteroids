@@ -20,7 +20,7 @@ module.exports = {
         secret: "hu_H9_h98ho_HGD"
     },
 	socket:{
-		port:5000,
+		port:5546,
         verbose:true
 	},
     server:{
@@ -30,7 +30,8 @@ module.exports = {
 		devSourceMap:[
 			"/asteroids.js",
             "/utils/socketEvents.js",
-            "/view/screenBuild.js"
+            "/view/screenBuild.js",
+            "/view/ui-elements.js"
 		],
 		version : "dev",
 		destination : "/asteroids.mini.",

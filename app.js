@@ -81,6 +81,23 @@ app
 	})
 })
 
+.get('/roulette', (request, response) => {	
+	response.render('website/roulette', {
+		sections : function(){
+            var v = [];
+            v.push({title:0})
+            for(var i = 0; i<60; i++) {
+                v.push({title:Math.floor(Math.random()*60)});
+            }
+            v.push({title:0})
+            return v;
+        },
+        scripts: [
+            {file:["/js/roulette.js"]}
+        ]
+	})
+})
+
 .get('/info', (request, response) => {	
 	response.render('info', {
 		

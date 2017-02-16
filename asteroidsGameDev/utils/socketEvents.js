@@ -1,4 +1,33 @@
 
+function getEvents(){
+    var events = [];
+    events["ckey"] = {
+        onReceive : function(data){
+            output.write("ckey : "+data)
+        }
+    }
+    events["cmouse"] = {
+        onReceive : function(data){
+            output.write("cmouse : "+data)
+        }
+    }
+    events["console"] = {
+        onReceive : function(data){
+            output.write(data)
+        }
+    }
+    events["mouseDragged"] = {
+        onReceive : function(data){
+            output.write(JSON.stringify(data));
+            mouses = data.mouses;
+            clients = data.clients;
+        }
+    }
+    return events;
+}
+
+//////////////////////////////////////////////////////////
+
 
 var sockets = {
     socket : null,
@@ -11,9 +40,13 @@ var sockets = {
         });
         
         this.socket.on('screenInfo', function(message, ack) {
-            console.log("received screen info : " + JSON.stringify(message))
-            ack("client received a screen ! ");
+            screenBuild.addScreen(message.header,message.data);
+            ack("OK");
         });
+        
+        this.socket.on('disconnected', function(){
+            output.write('disconnected from server')
+        })
     },
     
     //regular events

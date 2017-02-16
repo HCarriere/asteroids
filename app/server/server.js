@@ -2,6 +2,8 @@ const conf = require('../../config')
 const front = require('../front')
 var events = require('./events').getEvents();
 
+var clients = [];
+var mouses = [];
 
 var io;
 
@@ -14,8 +16,8 @@ function init(server){
 		//SESSION ON
 		
         socket.on("event", function(message){
-            logMsg('event : '+JSON.stringify(message));
-            events[message.header].onReceive(message.data, socket);
+            //logMsg('event : '+JSON.stringify(message));
+            events[message.header].onReceive(message.data, socket, io);
         });
         
         socket.on("screenInfo", function(message) {
@@ -37,10 +39,40 @@ function init(server){
     
     
 	io.listen(conf.socket.port);
-	logMsg("socket.io launched on "+conf.socket.port)
+	logMsg("socket.io launched on "+conf.socket.port);
+    
+    
+    /////////// LOOPS ///////////
+    setInterval(function (){
+        updateGameState();
+    },166);
 }
 
+function updateGameState(){
+  
+    io.emit('event',({header:'mouseDragged', 
+                      data: {
+                          mouses : mouses,
+                          clients : clients
+                      }
+                     }));
+    
+}
 
+function updateClientMouse(client, mouse) {
+    
+    if(!mouses[client.id]){
+        mouses[client.id] = {
+            x:0,
+            y:0
+        }
+        clients.push(client.id);
+    }
+    mouses[client.id].x = mouse.x;
+    mouses[client.id].y = mouse.y;
+    console.log(JSON.stringify(client))
+}
+////// EVENTS //////
 
 function onConnect(socket){
 	logMsg('client '+socket.id+' connected');
@@ -72,7 +104,7 @@ function emitToRoom(roomName, message){
 }
 
 function emitToRoomExceptSelf(client, roomName, message){
-    socket.to(roomName).emit('event', message);
+    client.to(roomName).emit('event', message);
 }
 /**
 emit to everyone connected (use with care?).
@@ -111,7 +143,8 @@ module.exports = {
     emitToRoomExceptSelf,
     broadcast,
     joinRoom,
-    leaveRoom
+    leaveRoom,
+    updateClientMouse
 }
 
 
@@ -122,6 +155,7 @@ function logMsg(message){
     if(conf.socket.verbose){
         console.log(message)
     }
+//    //for the lolz
 //    broadcast({
 //        header:'console',
 //        data:message

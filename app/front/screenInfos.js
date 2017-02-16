@@ -1,6 +1,10 @@
 var screens = [];
+
 screens["home"] = {
-    data:"coucou home!"
+    data : ""
+};
+screens["none"] = {
+    
 };
 
 function getScreenInfo(id){

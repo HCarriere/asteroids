@@ -1,26 +1,7 @@
 
 var canvas, ctx, mouseX, mouseY;
-
-
-function getEvents(){
-    var events = [];
-    events["ckey"] = {
-        onReceive : function(data){
-            console.log("ckey : "+data)
-        }
-    }
-    events["cmouse"] = {
-        onReceive : function(data){
-            console.log("cmouse : "+data)
-        }
-    }
-    events["console"] = {
-        onReceive : function(data){
-            output.write(data)
-        }
-    }
-    return events;
-}
+var mouses = [];
+var clients = [];
 
 $(document).ready(function(){
     sockets.init(getEvents());
@@ -74,7 +55,7 @@ function render(){
     
 //    ctx.fillStyle = "#ff0000";
 //    ctx.fillRect(mouseX,mouseY,10,10);
-    
+    drawMouses();
 	requestAnimationFrame(render);
 }
 
@@ -86,7 +67,7 @@ var output = {
     write : function(message){
         this.history.push(message);
         if(this.history.length > 40){
-            console.log(this.history.shift())
+            this.history.shift();
         }
     },
     
@@ -113,11 +94,11 @@ function mouseDragged(e) {
     else if(e.layerX) {
         mouseX = e.layerX;
         mouseY = e.layerY;
-    }	
+    }
+    //sockets.emit('mouseDragged',null,{x:mouseX, y:mouseY})
 }
 //e.charCode
 function keyPressed(e){
-	//console.log(e.charCode)
     sockets.emit('key',null,e.charCode);
 }
 
@@ -128,3 +109,17 @@ function resizeCanvas() {
 	height = canvas.height = (window.innerHeight);
 	}, 0);
 };
+
+
+
+
+//// test ///
+
+
+function drawMouses(){
+    for(var m = 0; m< clients.length; m++){
+        ctx.fillStyle = "#ff0000"/*mouses[clients[m]].color*/;
+        ctx.fillRect(mouses[clients[m]].x,mouses[clients[m]].y,10,10);
+    }
+    
+}
