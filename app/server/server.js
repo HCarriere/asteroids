@@ -45,32 +45,31 @@ function init(server){
     /////////// LOOPS ///////////
     setInterval(function (){
         updateGameState();
-    },166);
+    },64);
 }
 
 function updateGameState(){
   
-    io.emit('event',({header:'mouseDragged', 
-                      data: {
-                          mouses : mouses,
-                          clients : clients
-                      }
-                     }));
+io.emit('event',({
+    header:'mouseDragged', 
+    data: {mouses : mouses}
+}));
     
 }
 
 function updateClientMouse(client, mouse) {
-    
-    if(!mouses[client.id]){
-        mouses[client.id] = {
+    if(!clients[client.id]){
+        logMsg(client.id+" -> "+JSON.stringify(mouse))
+        mouses.push({
             x:0,
             y:0
-        }
-        clients.push(client.id);
+        })
+        clients[client.id] = mouses.length -1 ;
     }
-    mouses[client.id].x = mouse.x;
-    mouses[client.id].y = mouse.y;
-    console.log(JSON.stringify(client))
+    
+    mouses[clients[client.id]].x = mouse.x;
+    mouses[clients[client.id]].y = mouse.y;
+    
 }
 ////// EVENTS //////
 
@@ -161,3 +160,4 @@ function logMsg(message){
 //        data:message
 //    })
 }
+

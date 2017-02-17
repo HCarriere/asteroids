@@ -18,9 +18,7 @@ function getEvents(){
     }
     events["mouseDragged"] = {
         onReceive : function(data){
-            output.write(JSON.stringify(data));
             mouses = data.mouses;
-            clients = data.clients;
         }
     }
     return events;

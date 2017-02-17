@@ -1,7 +1,6 @@
 
 var canvas, ctx, mouseX, mouseY;
 var mouses = [];
-var clients = [];
 
 $(document).ready(function(){
     sockets.init(getEvents());
@@ -62,6 +61,7 @@ function render(){
 
 //////////////inputs/////////////////////
 var output = {
+    
     history : [],
     
     write : function(message){
@@ -95,11 +95,12 @@ function mouseDragged(e) {
         mouseX = e.layerX;
         mouseY = e.layerY;
     }
-    //sockets.emit('mouseDragged',null,{x:mouseX, y:mouseY})
+    sockets.emit('mouseDragged',null,{x:mouseX, y:mouseY})
 }
 //e.charCode
 function keyPressed(e){
     sockets.emit('key',null,e.charCode);
+    //e.preventDefault();
 }
 
 ///////////////// resize /////////////////
@@ -117,9 +118,10 @@ function resizeCanvas() {
 
 
 function drawMouses(){
-    for(var m = 0; m< clients.length; m++){
+    for(var m = 0; m< mouses.length; m++){
         ctx.fillStyle = "#ff0000"/*mouses[clients[m]].color*/;
-        ctx.fillRect(mouses[clients[m]].x,mouses[clients[m]].y,10,10);
+        ctx.fillRect(mouses[m].x,mouses[m].y,10,10);
     }
+    
     
 }
